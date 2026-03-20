@@ -3,11 +3,17 @@ package castelo.gabriel.CadastroNinjas.Missoes;
 import castelo.gabriel.CadastroNinjas.Ninjas.NinjaModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tb_missoes")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MissoesModel {
 
     @Id
@@ -19,9 +25,4 @@ public class MissoesModel {
     @OneToMany(mappedBy = "missoes")
     @JsonIgnore
     private List<NinjaModel> ninjas;
-
-
-    public MissoesModel() {
-    }
-
 }
