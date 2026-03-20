@@ -1,5 +1,6 @@
-package castelo.gabriel.CadastroNinjas.Model;
+package castelo.gabriel.CadastroNinjas.Ninjas;
 
+import castelo.gabriel.CadastroNinjas.Missoes.MissoesModel;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +12,10 @@ public class NinjaModel {
     private String nome;
     private String email;
     private int idade;
+
+    @ManyToOne
+    @JoinColumn(name = "missoes_id")
+    private MissoesModel missoes;
 
     public NinjaModel() {
     }

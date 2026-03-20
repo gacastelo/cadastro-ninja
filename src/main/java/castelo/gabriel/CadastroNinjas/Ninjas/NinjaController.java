@@ -1,4 +1,4 @@
-package castelo.gabriel.CadastroNinjas.Controller;
+package castelo.gabriel.CadastroNinjas.Ninjas;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
