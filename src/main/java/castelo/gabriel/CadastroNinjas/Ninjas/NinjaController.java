@@ -3,19 +3,19 @@ package castelo.gabriel.CadastroNinjas.Ninjas;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("ninjas")
 public class NinjaController {
     @PostMapping("/criar")
     public String criarNinja() {
         return "Ninja Criado";
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public String mostrarTodosNinjas() {
         return "Todos os Ninjas";
     }
 
-    @GetMapping("/todosID")
+    @GetMapping("/listarID")
     public String mostraNinjaPorID() {
         return "Ninja por Id";
     }
