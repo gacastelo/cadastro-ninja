@@ -2,24 +2,41 @@ package castelo.gabriel.CadastroNinjas.Missoes;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("missoes")
 public class MissoesController {
-    @PostMapping("/criar")
-    public String criarMissao(){
-        return "Missao Criada";
-    }
-    @GetMapping("/listar")
-    public String listarMissoes(){
-        return "Missoes listadas";
+
+    MissoesService missoesService;
+
+    public MissoesController(MissoesService missoesService) {
+        this.missoesService = missoesService;
     }
 
-    @PutMapping("/alterar")
-    public String alterarMissao(){
-        return "Missao Alterada";
+
+    @PostMapping("/criar")
+    public MissoesModel criarMissao(@RequestBody MissoesModel missao){
+        return missoesService.criarMissao(missao);
     }
-    @DeleteMapping("/deletar")
-    public String deletarMissao(){
-        return "Missao Deletadada";
+
+    @GetMapping("/listar")
+    public List<MissoesModel> listarMissoes(){
+        return missoesService.listarMissoes();
+    }
+
+    @GetMapping("/listar/{id}")
+    public MissoesModel listarMissaoPorId(@PathVariable Long id){
+        return missoesService.listarMissaoPorId(id);
+    }
+
+    @PutMapping("/alterar/{id}")
+    public MissoesModel alterarMissao(@PathVariable Long id, @RequestBody MissoesModel missao){
+        return missoesService.alterarMissao(id, missao);
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    public void deletarMissao(@PathVariable Long id){
+        missoesService.deletarMissaoPorId(id);
     }
 }
