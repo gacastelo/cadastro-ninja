@@ -13,7 +13,15 @@ public class NinjaService {
         this.ninjaRepository = ninjaRepository;
     }
 
+    public NinjaModel criarNinja(NinjaModel ninja){
+        return ninjaRepository.save(ninja);
+    }
+
     public List<NinjaModel> listarNinjas(){
         return ninjaRepository.findAll();
+    }
+
+    public NinjaModel listarNinjaPorId(Long id) {
+        return ninjaRepository.findById(id).orElse(null);
     }
 }

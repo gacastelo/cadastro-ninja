@@ -15,8 +15,8 @@ public class NinjaController {
     }
 
     @PostMapping("/criar")
-    public String criarNinja() {
-        return "Ninja Criado";
+    public NinjaModel criarNinja(@RequestBody NinjaModel ninjaModel) {
+        return ninjaService.criarNinja(ninjaModel);
     }
 
     @GetMapping("/listar")
@@ -24,9 +24,9 @@ public class NinjaController {
         return ninjaService.listarNinjas();
     }
 
-    @GetMapping("/listarID")
-    public String listarNinjaPorID() {
-        return "Ninja por Id";
+    @GetMapping("/listar/{id}")
+    public NinjaModel listarNinjaPorID(@PathVariable Long id) {
+        return ninjaService.listarNinjaPorId(id);
     }
 
     @PutMapping("/alterarID")
