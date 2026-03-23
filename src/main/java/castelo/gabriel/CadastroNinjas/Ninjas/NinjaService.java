@@ -24,4 +24,8 @@ public class NinjaService {
     public NinjaModel listarNinjaPorId(Long id) {
         return ninjaRepository.findById(id).orElse(null);
     }
+
+    public void deletarNinjaPorId(Long id){
+        ninjaRepository.deleteById(id);
+    }
 }
