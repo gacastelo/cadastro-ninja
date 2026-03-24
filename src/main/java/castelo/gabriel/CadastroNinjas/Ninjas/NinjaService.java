@@ -3,6 +3,8 @@ package castelo.gabriel.CadastroNinjas.Ninjas;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NinjaService {
@@ -15,28 +17,35 @@ public class NinjaService {
         this.ninjaMapper = ninjaMapper;
     }
 
-    public NinjaDTO criarNinja(NinjaDTO ninjaDTO){
+    public NinjaDTO criarNinja(NinjaDTO ninjaDTO) {
         NinjaModel ninja = ninjaMapper.map(ninjaDTO);
         ninjaRepository.save(ninja);
         return ninjaMapper.map(ninja);
     }
 
-    public List<NinjaModel> listarNinjas(){
-        return ninjaRepository.findAll();
+    public List<NinjaDTO> listarNinjas() {
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas.stream()
+                .map(ninjaMapper::map)
+                .collect(Collectors.toList());
     }
 
-    public NinjaModel listarNinjaPorId(Long id) {
-        return ninjaRepository.findById(id).orElse(null);
+    public NinjaDTO listarNinjaPorId(Long id) {
+        Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
+        return ninjaModel.map(ninjaMapper::map).orElse(null);
     }
 
-    public void deletarNinjaPorId(Long id){
+    public void deletarNinjaPorId(Long id) {
         ninjaRepository.deleteById(id);
     }
 
-    public NinjaModel atualizarNinja(Long id, NinjaModel ninjaAtualizado) {
-        if (ninjaRepository.existsById(id)){
+    public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO) {
+        Optional<NinjaModel> ninjaPorId = ninjaRepository.findById(id);
+        if (ninjaPorId.isPresent()) {
+            NinjaModel ninjaAtualizado = ninjaMapper.map(ninjaDTO);
             ninjaAtualizado.setId(id);
-            return ninjaRepository.save(ninjaAtualizado);
+            ninjaRepository.save(ninjaAtualizado);
+            return ninjaMapper.map(ninjaAtualizado);
         }
         return null;
     }
