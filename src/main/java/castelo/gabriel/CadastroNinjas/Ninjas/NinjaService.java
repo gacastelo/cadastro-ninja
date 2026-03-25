@@ -1,6 +1,7 @@
 package castelo.gabriel.CadastroNinjas.Ninjas;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,7 @@ public class NinjaService {
         this.ninjaMapper = ninjaMapper;
     }
 
+    @Transactional
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO) {
         NinjaModel ninja = ninjaMapper.map(ninjaDTO);
         ninjaRepository.save(ninja);
@@ -35,10 +37,13 @@ public class NinjaService {
         return ninjaModel.map(ninjaMapper::map).orElse(null);
     }
 
+    @Transactional
     public void deletarNinjaPorId(Long id) {
         ninjaRepository.deleteById(id);
     }
 
+    /*
+    // Can be used in Put later
     public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO) {
         Optional<NinjaModel> ninjaPorId = ninjaRepository.findById(id);
         if (ninjaPorId.isPresent()) {
@@ -48,5 +53,19 @@ public class NinjaService {
             return ninjaMapper.map(ninjaAtualizado);
         }
         return null;
+    }
+    */
+
+    @Transactional
+    public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO) {
+        Optional<NinjaModel> ninjaPorId = ninjaRepository.findById(id);
+        if (ninjaPorId.isPresent()){
+            NinjaModel ninja = ninjaMapper.patchMap(ninjaPorId.get(), ninjaDTO);
+            ninjaRepository.save(ninja);
+            return ninjaMapper.map(ninja);
+        }
+        else {
+            return null;
+        }
     }
 }

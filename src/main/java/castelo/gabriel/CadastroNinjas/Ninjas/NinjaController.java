@@ -1,5 +1,6 @@
 package castelo.gabriel.CadastroNinjas.Ninjas;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +16,36 @@ public class NinjaController {
     }
 
     @PostMapping("/criar")
-    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninjaDTO) {
-        return ninjaService.criarNinja(ninjaDTO);
+    public ResponseEntity<NinjaDTO> criarNinja(@RequestBody NinjaDTO ninjaDTO) {
+        NinjaDTO ninja = ninjaService.criarNinja(ninjaDTO);
+        return ResponseEntity.ok(ninja);
     }
 
     @GetMapping("/listar")
-    public List<NinjaDTO> listarNinjas() {
-        return ninjaService.listarNinjas();
+    public ResponseEntity<List<NinjaDTO>> listarNinjas() {
+        List<NinjaDTO> ninjas = ninjaService.listarNinjas();
+        return ResponseEntity.ok(ninjas);
     }
 
     @GetMapping("/listar/{id}")
-    public NinjaDTO listarNinjaPorID(@PathVariable Long id) {
-        return ninjaService.listarNinjaPorId(id);
+    public ResponseEntity<NinjaDTO> listarNinjaPorID(@PathVariable Long id) {
+        NinjaDTO ninja = ninjaService.listarNinjaPorId(id);
+            return (ninja != null) ? ResponseEntity.ok(ninja) : ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/alterar/{id}")
-    public NinjaDTO alterarNinja(@PathVariable Long id, @RequestBody NinjaDTO ninja) {
-        return ninjaService.atualizarNinja(id, ninja);
+    @PatchMapping("/alterar/{id}")
+    public ResponseEntity<NinjaDTO> alterarNinja(@PathVariable Long id, @RequestBody NinjaDTO ninja) {
+        NinjaDTO ninjaDTO = ninjaService.atualizarNinja(id, ninja);
+        return (ninjaDTO != null) ? ResponseEntity.ok(ninjaDTO) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/deletar/{id}")
-    public void deletarNinjaPorId(@PathVariable Long id) {
-        ninjaService.deletarNinjaPorId(id);
+    public ResponseEntity<String> deletarNinjaPorId(@PathVariable Long id) {
+        if (ninjaService.listarNinjaPorId(id) != null){
+            ninjaService.deletarNinjaPorId(id);
+            return ResponseEntity.ok("Ninja com id " + id + " deletado com sucesso!");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
