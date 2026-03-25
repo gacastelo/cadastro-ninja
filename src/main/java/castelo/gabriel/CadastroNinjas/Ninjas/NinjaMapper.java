@@ -1,6 +1,6 @@
 package castelo.gabriel.CadastroNinjas.Ninjas;
 
-import castelo.gabriel.CadastroNinjas.Missoes.MissoesModel;
+import castelo.gabriel.CadastroNinjas.Missoes.MissaoModel;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,7 +37,7 @@ public class NinjaMapper {
         String newEmail = (ninjaDTO.getEmail() != null) ? ninjaDTO.getEmail() : ninjaModel.getEmail();
         int newIdade = (ninjaDTO.getIdade() != 0) ? ninjaDTO.getIdade() : ninjaModel.getIdade();
         String newRank = (ninjaDTO.getRank() != null) ? ninjaDTO.getRank() : ninjaModel.getRank();
-        MissoesModel newMissoes = (ninjaDTO.getMissoes() != null) ? ninjaDTO.getMissoes() : ninjaModel.getMissoes();
+        MissaoModel newMissoes = (ninjaDTO.getMissoes() != null) ? ninjaDTO.getMissoes() : ninjaModel.getMissoes();
 
         ninjaModel.setId(newId);
         ninjaModel.setNome(newNome);

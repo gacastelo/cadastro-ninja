@@ -1,6 +1,6 @@
 package castelo.gabriel.CadastroNinjas.Ninjas;
 
-import castelo.gabriel.CadastroNinjas.Missoes.MissoesModel;
+import castelo.gabriel.CadastroNinjas.Missoes.MissaoModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +15,5 @@ public class NinjaDTO {
     private String email;
     private int idade;
     private String rank;
-    private MissoesModel missoes;
+    private MissaoModel missoes;
 }

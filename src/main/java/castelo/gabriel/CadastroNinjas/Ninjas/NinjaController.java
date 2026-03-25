@@ -30,7 +30,7 @@ public class NinjaController {
     @GetMapping("/listar/{id}")
     public ResponseEntity<NinjaDTO> listarNinjaPorID(@PathVariable Long id) {
         NinjaDTO ninja = ninjaService.listarNinjaPorId(id);
-            return (ninja != null) ? ResponseEntity.ok(ninja) : ResponseEntity.notFound().build();
+        return (ninja != null) ? ResponseEntity.ok(ninja) : ResponseEntity.notFound().build();
     }
 
     @PatchMapping("/alterar/{id}")
