@@ -1,6 +1,6 @@
 package castelo.gabriel.CadastroNinjas.Ninjas;
 
-import castelo.gabriel.CadastroNinjas.Missoes.MissoesModel;
+import castelo.gabriel.CadastroNinjas.Missoes.MissaoModel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,7 +23,7 @@ public class NinjaModel {
 
     @ManyToOne
     @JoinColumn(name = "missoes_id")
-    private MissoesModel missoes;
+    private MissaoModel missoes;
 
     @Column(name= "rank")
     private String rank;
