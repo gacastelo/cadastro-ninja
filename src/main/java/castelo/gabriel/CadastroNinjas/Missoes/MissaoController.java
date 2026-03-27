@@ -10,12 +10,10 @@ import java.util.List;
 @RequestMapping("missoes")
 public class MissaoController {
 
-    MissaoService missaoService;
-    MissaoMapper missaoMapper;
+    private final MissaoService missaoService;
 
-    public MissaoController(MissaoService missaoService, MissaoMapper missaoMapper) {
+    public MissaoController(MissaoService missaoService) {
         this.missaoService = missaoService;
-        this.missaoMapper = missaoMapper;
     }
 
 
