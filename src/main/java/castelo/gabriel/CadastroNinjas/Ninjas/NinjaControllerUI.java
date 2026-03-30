@@ -50,6 +50,25 @@ public class NinjaControllerUI {
         }
     }
 
+    @GetMapping("/alterar/{id}")
+    public String alterarNinjaPorId(@PathVariable Long id, Model model){
+        NinjaDTO ninja = ninjaService.listarNinjaPorId(id);
+        if (ninja != null){
+            model.addAttribute("ninjaPatch", ninja);
+            return "ninja/alterarNinja";
+        }
+        else {
+            model.addAttribute("mensagem", "Ninja não encontrado!");
+            return "redirect:/ninjas/ui/listar";
+        }
+    }
+
+    @PostMapping("/patch")
+    public String NinjaPatch(@ModelAttribute NinjaDTO ninja, RedirectAttributes redirectAttributes){
+        ninjaService.atualizarNinja(ninja.getId(), ninja);
+        redirectAttributes.addFlashAttribute("mensagem", "Ninja cadastrado com sucesso!");
+        return "redirect:/ninjas/ui/listar";
+    }
 
     @GetMapping("/deletar/{id}")
     public String deletarNinjaPorId(@PathVariable Long id) {

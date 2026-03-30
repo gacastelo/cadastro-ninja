@@ -56,7 +56,7 @@
         }
 
         /* Botões */
-        a {
+        a, #delete{
     display: inline-block;
     padding: 6px 12px;
     border-radius: 8px;
@@ -73,12 +73,13 @@ a:hover {
 }
 
 /* Deletar */
-a:last-child {
+#delete {
     background: #fee2e2;
     color: #b91c1c;
+    border: 0px;
 }
 
-a:last-child:hover {
+#delete:hover {
     background: #fecaca;
 }
 
@@ -135,13 +136,25 @@ color: #e0ffe7;
 
             <td data-label="Ações">
                 <a th:href="@{/ninjas/ui/detalhar/{id}(id=${ninja.id})}">Ver Detalhes</a>
-                <a th:href="@{/ninjas/ui/#/{id}(id=${ninja.id})}">Alterar</a>
-                <a th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}">Deletar</a>
+                <a th:href="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}">Alterar</a>
+                <button id="delete" th:onclick="'confirmarDelete(' + ${ninja.id} + ')'">Deletar</button>
             </td>
         </tr>
         </tbody>
     </table>
 </main>
 
+
+<script>
+function confirmarDelete(id) {
+  const confirmacao = confirm("Você tem certeza que quer deletar?");
+
+  if (confirmacao) {
+    window.location.href = '/ninjas/ui/deletar/' + id;
+  } else {
+    
+  }
+}
+</script>
 </body>
 </html>
