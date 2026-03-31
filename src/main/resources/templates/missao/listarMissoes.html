@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Tabela de Ninjas</title>
+    <title>Tabela Missões</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -101,60 +101,43 @@ color: #e0ffe7;
     </style>
 </head>
 <body>
-
 <main>
     <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
-    <h1>Lista de Ninjas</h1>
-    <a th:href="@{/ninjas/ui/adicionar}" id="green">Adicionar Ninja</a>
+    <h1>Lista de Missões</h1>
+    <a th:href="@{/missoes/ui/adicionar}" id="green">Adicionar Missão</a>
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Idade</th>
-            <th>Email</th>
             <th>Rank</th>
-            <th>Missões</th>
             <th>Ações</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="ninja: ${ninjas}">
-            <td data-label="ID" th:text="${ninja.id}"></td>
-            <td data-label="Nome" th:text="${ninja.nome}"></td>
-            <td data-label="Idade" th:text="${ninja.idade}"></td>
-            <td data-label="Email" th:text="${ninja.email}"></td>
-            <td data-label="Rank" th:text="${ninja.rank}"></td>
-
-            <td data-label="Missões">
-        <span th:if="${ninja.missoes}">
-            <span th:text="${ninja.missoes.nome}"></span>,
-            Dificuldade: <span th:text="${ninja.missoes.rank}"></span>
-        </span>
-                <span th:if="${ninja.missoes} == null">Sem missões</span>
-            </td>
-
+        <tr th:each="missao: ${missoes}">
+            <td data-label="ID" th:text="${missao.id}"></td>
+            <td data-label="Nome" th:text="${missao.nome}"></td>
+            <td data-label="Rank" th:text="${missao.rank}"></td>
             <td data-label="Ações">
-                <a th:href="@{/ninjas/ui/detalhar/{id}(id=${ninja.id})}">Ver Detalhes</a>
-                <a th:href="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}">Alterar</a>
-                <button id="delete" th:onclick="'confirmarDelete(' + ${ninja.id} + ')'">Deletar</button>
+                <a th:href="@{/missoes/ui/detalhar/{id}(id=${missao.id})}">Ver Detalhes</a>
+                <a th:href="@{/missoes/ui/alterar/{id}(id=${missao.id})}">Alterar</a>
+                <button id="delete" th:onclick="'confirmarDelete(' + ${missao.id} + ')'">Deletar</button>
             </td>
         </tr>
         </tbody>
     </table>
 </main>
-
-
 <script>
-function confirmarDelete(id) {
-  const confirmacao = confirm("Você tem certeza que quer deletar?");
+    function confirmarDelete(id) {
+      const confirmacao = confirm("Você tem certeza que quer deletar?");
 
-  if (confirmacao) {
-    window.location.href = '/ninjas/ui/deletar/' + id;
-  } else {
-    
-  }
-}
+      if (confirmacao) {
+        window.location.href = '/missoes/ui/deletar/' + id;
+      } else {
+
+      }
+    }
 </script>
 </body>
 </html>

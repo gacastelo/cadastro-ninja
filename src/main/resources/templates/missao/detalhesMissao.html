@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <head>
-    <title>Detalhes do Ninja</title>
+    <title>Detalhes da Missão</title>
     <style>
         body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -87,24 +87,22 @@ tr:hover {
     background: #d1d5db;
 }
 
-.missao{
-        text-decoration: none;
-        font-size: 0.85rem;
+.ninja{
+    text-decoration: none;
+    font-size: 0.85rem;
     font-weight: 500;
     display: block;
     color: #1f2937;
-        }
+}
     </style>
 </head>
 <body>
-<h1>Detalhes do Ninja</h1>
+<h1>Detalhes da Missão</h1>
 <div>
-    <h2 th:text="${ninja.nome}"></h2>
-    <p><strong>Email:</strong> <span th:text="${ninja.email}"></span></p>
-    <p><strong>Idade:</strong> <span th:text="${ninja.idade}"></span></p>
-    <p><strong>Rank:</strong> <span th:text="${ninja.rank}"></span></p>
+    <h2><span th:text="${missao.nome + ' - Número ' + missao.id}"></span></h2>
+    <p><strong>Rank:</strong> <span th:text="${missao.rank}"></span></p>
 
-    <h3>Missões:</h3>
+    <h3>Ninjas:</h3>
     <table>
         <thead>
         <tr>
@@ -113,13 +111,13 @@ tr:hover {
         </tr>
         </thead>
         <tbody>
-        <tr th:each="missao : ${ninja.missoes}">
-            <td><a class="missao" th:text="${missao.nome}" th:href="@{/missoes/ui/detalhar/{id}(id=${missao.id})}"></a></td>
-            <td th:text="${missao.rank}"></td>
+        <tr th:each="ninja : ${missao.ninjas}">
+            <td><a class="ninja" th:text="${ninja.nome}" th:href="@{/ninjas/ui/detalhar/{id}(id=${ninja.id})}"></a></td>
+            <td th:text="${ninja.rank}"></td>
         </tr>
         </tbody>
     </table>
 </div>
-<a id="voltar" href="/ninjas/ui/listar">Voltar para a lista de ninjas</a>
+<a id="voltar" href="/missoes/ui/listar">Voltar para a lista de missões</a>
 </body>
 </html>
