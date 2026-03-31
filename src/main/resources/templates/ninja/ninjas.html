@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Rotas | Cadastro Ninja</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #f4f7f9;
+            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container { max-width: 1000px; width: 100%; }
+
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-size: 28px; color: #1a1a1a; margin-bottom: 10px; }
+        .header p { color: #666; }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #999;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+        }
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+            margin-left: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .route-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            position: relative;
+        }
+        /* Cards clicáveis ganham hover */
+        a.route-card:hover {
+            border-color: #ff4500;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+        }
+
+        .route-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 12px;
+        }
+
+        .info h3 { font-size: 14px; color: #1a1a1a; font-family: monospace; word-break: break-all; }
+        .info p { font-size: 13px; color: #666; margin-top: 10px; line-height: 1.4; }
+
+        .badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Cores dos Métodos HTTP */
+        .get { background: #e7f3ff; color: #007bff; }
+        .post { background: #eaffea; color: #28a745; }
+        .patch { background: #fff4e5; color: #ff8c00; }
+        .delete { background: #ffebee; color: #d32f2f; }
+        .tool { background: #f3e5f5; color: #8e24aa; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            text-decoration: none;
+            color: #ff4500;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🗺️ Documentação de Rotas</h1>
+        <p>Visão geral de todos os endpoints e páginas configurados no sistema de Ninjas.</p>
+    </div>
+
+    <div class="section-title">1. Interface do Usuário (Thymeleaf)</div>
+    <div class="grid">
+        <a href="/ninjas/ui/listar" class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/ui/listar</h3></div>
+                <span class="badge get">GET</span>
+            </div>
+            <div class="info"><p>Página: <b>ninjas/listarNinjas</b><br>O Quadro de Ninjas.</p></div>
+        </a>
+        <a href="/ninjas/ui/adicionar" class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/ui/adicionar</h3></div>
+                <span class="badge get">GET</span>
+            </div>
+            <div class="info"><p>Página: <b>ninjas/adicionarNinja</b><br>Formulário de cadastro.</p></div>
+        </a>
+        <div class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/ui/detalhar/{id}</h3></div>
+                <span class="badge get">GET</span>
+            </div>
+            <div class="info"><p>Página: <b>ninja/detalhesNinja</b><br>Visualização detalhada de um ninja.</p></div>
+        </div>
+        <div class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/ui/alterar/{id}</h3></div>
+                <span class="badge get">GET</span>
+            </div>
+            <div class="info"><p>Página: <b>ninja/alterarNinja</b><br>Formulário de edição.</p></div>
+        </div>
+        <div class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/ui/patch</h3></div>
+                <span class="badge post">POST</span>
+            </div>
+            <div class="info"><p>Ação: Salva a edição e redireciona para a lista.</p></div>
+        </div>
+        <div class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/ui/deletar/{id}</h3></div>
+                <span class="badge get">GET</span>
+            </div>
+            <div class="info"><p>Ação: Exclui o ninja e redireciona para a lista.</p></div>
+        </div>
+    </div>
+
+    <div class="section-title">2. API REST de Dados (JSON)</div>
+    <div class="grid">
+        <div class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/criar</h3></div>
+                <span class="badge post">POST</span>
+            </div>
+            <div class="info"><p>Cria um novo ninja e salva no banco (Requer Body JSON).</p></div>
+        </div>
+        <a href="/ninjas/listar" target="_blank" class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/listar</h3></div>
+                <span class="badge get">GET</span>
+            </div>
+            <div class="info"><p>Retorna o array JSON com todas os ninjas cadastrados.</p></div>
+        </a>
+        <div class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/listar/{id}</h3></div>
+                <span class="badge get">GET</span>
+            </div>
+            <div class="info"><p>Busca os dados de um ninja específico por ID.</p></div>
+        </div>
+        <div class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/alterar/{id}</h3></div>
+                <span class="badge patch">PATCH</span>
+            </div>
+            <div class="info"><p>Atualiza campos específicos de um ninja existente.</p></div>
+        </div>
+        <div class="route-card">
+            <div class="route-header">
+                <div class="info"><h3>/ninjas/deletar/{id}</h3></div>
+                <span class="badge delete">DELETE</span>
+            </div>
+            <div class="info"><p>Remove um ninja permanentemente do banco.</p></div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="/" class="back-link">← Voltar para a Dashboard Principal</a>
+    </div>
+</div>
+</body>
+</html>

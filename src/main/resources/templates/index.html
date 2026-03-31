@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Manager | Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f7f9;
+            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.05);
+            border-color: #ff4500;
+        }
+
+        .card .icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            width: 100%;
+            max-width: 900px;
+            margin: 30px 0 15px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #ff4500;
+        }
+
+        /* Destaque para área de dev */
+        .dev-card {
+            background-color: #fafafa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Ninja & Missions Manager</h1>
+    <p>Bem-vindo ao centro de comando da Vila.</p>
+</div>
+
+<div class="section-title">Gerenciamento</div>
+<div class="grid">
+    <a href="/ninjas" class="card">
+        <h2>Ninjas</h2>
+        <p>Cadastre, visualize e edite os ninjas da vila. Controle de níveis e vilas.</p>
+        <span class="badge">Acessar Lista →</span>
+    </a>
+
+    <a href="/missoes" class="card">
+        <h2>Missões</h2>
+        <p>Gerencie as missões ativas, dificuldades e atribuições de cada shinobi.</p>
+        <span class="badge">Acessar Lista →</span>
+    </a>
+</div>
+
+<div class="section-title">Ferramentas de Desenvolvimento</div>
+<div class="grid">
+    <a href="/swagger-ui/index.html" target="_blank" class="card dev-card">
+        <h2>Swagger UI</h2>
+        <p>Documentação interativa da API. Teste os endpoints REST diretamente.</p>
+        <span class="badge">Abrir Documentação</span>
+    </a>
+
+    <a href="/h2-console" target="_blank" class="card dev-card">
+        <h2>H2 Console</h2>
+        <p>Banco de dados em memória. Use: <code>jdbc:h2:mem:testdb</code></p>
+        <span class="badge">Explorar Banco</span>
+    </a>
+</div>
+
+</body>
+</html>
